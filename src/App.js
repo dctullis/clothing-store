@@ -1,6 +1,6 @@
 import './App.css';
 import HomePage from './pages/homepage/homepage'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import ShopPage from './pages/shop/shop';
 import Header from './components/header/header';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
@@ -9,12 +9,14 @@ import { onSnapshot } from '@firebase/firestore';
 import React from 'react';
 import {connect} from 'react-redux'
 import { setCurrentUser } from './redux/user/user.actions'
+import { getAuth } from '@firebase/auth';
 
 
 class App extends React.Component {
 
   unsubscribeFromAuth = null;
 
+  currentAuth = getAuth();
   //when any changes occur on firebase, the auth state will change and the app will rerender
   //the relevant user data
   componentDidMount(){
@@ -47,12 +49,16 @@ class App extends React.Component {
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
-          <Route path="/signin" element={<SignInAndSignUpPage />} />
+          <Route exact path="/signin" element={<SignInAndSignUpPage/>} />
         </Routes>
       </div>
     );
   }
 }
+
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+})
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))

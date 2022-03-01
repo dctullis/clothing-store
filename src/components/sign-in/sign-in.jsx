@@ -18,6 +18,17 @@ class SignIn extends React.Component {
         }
     }
 
+    googleSignIn = (e) => {
+        try {
+           signInWithGoogle().then(res => {
+               if(res)
+                window.location.href = "/"
+           });
+        } catch(error) {
+            console.error(error);
+        }
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
 
@@ -27,6 +38,7 @@ class SignIn extends React.Component {
         try {
             signInWithEmailAndPassword(auth, email, password).then(() => {
                 this.setState({ email: '', password: ''});
+                window.location.href = "/";
             })
         } catch (error) {
             console.log(error);
@@ -81,7 +93,7 @@ signInWithEmailAndPassword(auth, email, password)
 
                     <div className='buttons'>
                         <CustomButton type="submit" >Sign In </CustomButton>
-                        <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+                        <CustomButton onClick={this.googleSignIn} isGoogleSignIn>
                             {''}
                             Sign in with Google {''}
                         </CustomButton>
