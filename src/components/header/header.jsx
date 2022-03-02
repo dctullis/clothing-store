@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom'
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { connect } from 'react-redux';
 import { getAuth, signOut } from "firebase/auth";
+import CartIcon from '../cart-icon/cart-icon';
+import Cart from '../cart/cart';
 
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
 
     const signOutFunc = () => {
         console.log(auth)
@@ -38,14 +40,18 @@ const Header = ({ currentUser }) => {
                             SIGN OUT
                         </div>
                     )}
+                <CartIcon />
             </div>
-
+            {
+                hidden ? null : <Cart />
+            }
         </div>
     )
 }
 
-const mapStateToProps = ({ user: { currentUser } }) => ({
+const mapStateToProps = ({ user: { currentUser }, cart: {hidden} }) => ({
     currentUser,
+    hidden
 
 });
 
