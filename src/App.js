@@ -12,6 +12,7 @@ import { setCurrentUser } from './redux/user/user.actions'
 import { getAuth } from '@firebase/auth';
 import {selectCurrentUser} from './redux/user/user.selectors'
 import {createStructuredSelector} from 'reselect'
+import CheckoutPage from './pages/checkout/checkout'
 
 
 
@@ -53,6 +54,7 @@ class App extends React.Component {
           <Route exact path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route exact path="/signin" element={<SignInAndSignUpPage/>} />
+          <Route exact path='/checkout' element={<CheckoutPage />} />
         </Routes>
       </div>
     );
